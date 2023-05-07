@@ -1,0 +1,62 @@
+
+{% extends 'main.html' %}
+{% block content %}
+
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+                    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+            <div class="card mb-4" >
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Orders
+                    <a style="float: right;" href="{% url 'Create Order' %}">New Order</a>
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer ID</th>
+                                <th>Order Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Order ID</th>
+                                <th>Customer ID</th>
+                                <th>Order Date</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for entry in data %}
+                            <tr>
+                                <td>{{ entry.order_id }}</td>
+                                <td>{{ entry.customer_id.customer_id }}</td>
+                                <td>{{ entry.order_date }}</td>
+                                {% if entry.return_stauts %}
+                                    <td>Returned</td>
+                                {% else %}
+                                    <td>{{ entry.order_status }}</td>
+                                {% endif %}
+                                <td>
+                                    <a href="{% url 'Order Details'  entry.order_id  %}">View</a>
+                                    <a href="{% url 'Delete Order'  entry.order_id  %}">Delete</a>
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock content %}
+
+             

@@ -1,0 +1,50 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+                    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+            <div class="card mb-4" >
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    {{ table_title }}
+                    <a style="float: right;" href="{% url create_object %}">{{ create_object }}</a>
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                {% for heading in table_heading %}
+                                    <th>
+                                        {{ heading }}
+                                    </th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                           {% for data in table_data %}
+                            <tr>
+                                {% for entry in data.0 %} 
+                                    <td>
+                                        {{ entry }}
+                                    </td>
+                                {% endfor %}
+                                <td>
+                                {% for entry in data.1 %}
+                                    | <a href="{% url entry.0  entry.1  %}">{{ entry.2 }}</a> | 
+                                {% endfor %}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock content %}
+
+             

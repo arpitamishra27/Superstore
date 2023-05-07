@@ -1,0 +1,39 @@
+{% extends 'main.html' %}
+{% block content %}
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+            <div class="card mb-4" >
+                <div class="card-header">
+                </div>
+            <div class="card-body">
+                <form action="" id="productForm" method="POST" sub_cat_url="{% url 'ajax_load_sub' %}" novalidate>
+                    {% csrf_token%}
+                    {{ form.as_p }}
+                    <button type="submit">{{ action }}</button>
+                </form>
+            </div>
+        </div>
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script>
+        $("#id_category_id").change(function (e) {
+            e.preventDefault();
+            var url = $("#productForm").attr("sub_cat_url");
+            var category_id = $(this).val();
+            console.log(url)
+            $.ajax({
+                url: url,
+                data: {
+                    'id_category_id': category_id
+                },
+                success: function (data) {
+                    
+                    $("#id_sub_category_id").html(data);
+                }
+            });
+        });
+    </script>
+{% endblock content %}

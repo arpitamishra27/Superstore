@@ -1,0 +1,130 @@
+{% extends 'main.html' %}
+{% block content %}
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+            <div class="card mb-4" >
+                <div class="card-header">
+                </div>
+            <div class="card-body">
+                <form class="form-horizontal" method="POST" action="" id="form-container">
+                    {% csrf_token %}
+                    <label for="customer_id">Customer ID</label>
+                    <input type="text" name="customer_id" id="customer_id">
+                    <br>
+                    {{ error }}
+                    <br>
+                    {{ product_form.management_form }}
+                    {% for form in product_form %}
+                    <div class="form-row">
+                       {{ form.as_p }}
+                    </div>
+                    {% endfor %}
+                    <button id="add-form" type="button">Add Product</button>
+                    <br><br>
+                    
+                    <label for="priority">Shipping Priority: </label>
+                    <select name="priority" id="priority">
+                        <option value="high">High</option>
+                        <option value="critical">Critical</option>
+                        <option value="medium">Medium</option>
+                        <option value="low">Low</option>
+                      </select>
+                    <br>
+                    <label for="ship_date">Shipping Date</label>
+                    <input type="date" id="ship_date" name="ship_date">
+                    <br>
+                    <label for="ship_mode">Shipping Mode</label>
+                    <select name="ship_mode" id="ship_mode">
+                        <option value="First Class">First Class</option>
+                        <option value="Second Class">Second Class</option>
+                        <option value="Same Day">Same Day</option>
+                        <option value="Standard Class">Standard Class</option>
+                      </select>
+                    <br><br>
+
+                    <button type="submit">Create Order</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+<script type='text/javascript'>
+
+    let birdForm = document.querySelectorAll(".form-row")
+    let container = document.querySelector("#form-container")
+    let addButton = document.querySelector("#add-form")
+    let totalForms = document.querySelector("#id_form-TOTAL_FORMS")
+    
+    let formNum = birdForm.length-1
+    addButton.addEventListener('click', addForm)
+
+    function addForm(e){
+        e.preventDefault()
+
+        let newForm = birdForm[0].cloneNode(true)
+        let formRegex = RegExp(`form-(\\d){1}-`,'g')
+
+        formNum++
+        newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+        container.insertBefore(newForm, addButton)
+        
+        totalForms.setAttribute('value', `${formNum+1}`)
+    }
+
+    var today = new Date();
+    var dd = today.getDate();
+    var mm = today.getMonth() + 1; //January is 0!
+    var yyyy = today.getFullYear();
+
+    if (dd < 10) {
+    dd = '0' + dd
+    }
+
+    if (mm < 10) {
+    mm = '0' + mm
+    }
+
+    today = yyyy + '-' + mm + '-' + dd;
+    var date = new Date();
+    date.setDate(date.getDate() + 7);
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1; //January is 0!
+    var yyyy = date.getFullYear();
+
+    if (dd < 10) {
+    dd = '0' + dd
+    }
+
+    if (mm < 10) {
+    mm = '0' + mm
+    }
+
+    min = yyyy + '-' + mm + '-' + dd;
+
+    var date = new Date();
+    date.setDate(date.getDate() + 30);
+    var dd = date.getDate();
+    var mm = date.getMonth() + 1; //January is 0!
+    var yyyy = date.getFullYear();
+
+    if (dd < 10) {
+    dd = '0' + dd
+    }
+
+    if (mm < 10) {
+    mm = '0' + mm
+    }
+
+    max = yyyy + '-' + mm + '-' + dd;
+
+    document.getElementById('ship_date').setAttribute("value", today);
+    document.getElementById('ship_date').setAttribute("min", min);
+    document.getElementById('ship_date').setAttribute("max", max);
+
+    </script>
+
+{% endblock content %}

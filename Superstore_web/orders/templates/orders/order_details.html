@@ -1,0 +1,68 @@
+
+{% extends 'main.html' %}
+{% block content %}
+
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+                    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+            <div class="card mb-4" >
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Order Id : {{ order_id }}
+                    {{ data.order_id }}
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>MRP</th>
+                                <th>Discount</th>
+                                <th>Quantity</th>
+                                <th>Shipping Cost</th>
+                                <th>Total</th>
+                            </tr>
+                        </thead>
+                        <tfoot>
+                            <tr>
+                                <th>Product Name</th>
+                                <th>Category</th>
+                                <th>MRP</th>
+                                <th>Discount</th>
+                                <th>Quantity</th>
+                                <th>Shipping Cost</th>
+                                <th>Total</th>
+                            </tr>
+                        </tfoot>
+                        <tbody>
+                            {% for entry in data %}
+                            <tr>
+                                <td>{{ entry.product_name}}</td>
+                                <td>{{ entry.category }}</td>
+                                <td>{{ entry.mrp }}</td>
+                                <td>{{ entry.discount }}</td>
+                                <td>{{ entry.quantity }}</td>
+                                <td>{{ entry.shipping_cost }}</td>
+                                <td>{{ entry.total }}</td>
+                               
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                              <th id="total" colspan="6">Total</th>
+                              <td>{{ total }}</td>
+                            </tr>
+                           </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock content %}
+
+             

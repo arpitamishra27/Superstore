@@ -1,0 +1,56 @@
+
+{% extends 'main.html' %}
+{% block content %}
+
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+                    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+            <div class="card mb-4" >
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Customer Id : {{ data.customer.customer_id }}
+                    <a style="float: right;" href="{% url 'Create Address' data.customer.id  %}">New Address</a>
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>City</th>
+                                <th>State</th>
+                                <th>Country</th>
+                                <th>Postal Code</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for entry in data.address %}
+                            <tr>
+                                <td>{{ entry.ID}}</td>
+                                <td>{{ entry.City }}</td>
+                                <td>{{ entry.State }}</td>
+                                <td>{{ entry.Country }}</td>
+                                <td>{{ entry.Postal_Code }}</td> 
+                                <td>
+                                    <a href="{% url 'Delete Address' entry.ID   %}">Remove</a>
+                                </td>             
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                              <th id="total" colspan="6">Total</th>
+                              <td>{{ total }}</td>
+                            </tr>
+                           </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock content %}
+
+             

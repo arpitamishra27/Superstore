@@ -1,0 +1,46 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+                    -----------------------------------------------------------------------------------------------------------------------------------------------------------------
+            <div class="card mb-4" >
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Customers
+                    <a style="float: right;" href="{% url 'Create Customer' %}">New Customer</a>
+                </div>
+                <div class="card-body">
+                    <table id="datatablesSimple">
+                        <thead>
+                            <tr>
+                                <th>Customer ID</th>
+                                <th>Name</th>
+                                <th>Segment</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                           {% for customer in data %}
+                            <tr>
+                                <td>{{ customer.customer_id }}</td>
+                                <td>{{ customer.first_name }} {{ customer.last_name }}</td>
+                                <td>{{ customer.segment }}</td>
+                                <td> <a href="{% url 'Customer Detail'  customer.id  %}">View</a>
+                                   / <a href="{% url 'Update Customer'  customer.id  %}">Edit</a>
+                                   / <a href="{% url 'Delete Customer'  customer.id  %}">Delete</a></td>
+                            </tr>
+                            {% endfor %}
+                          
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+{% endblock content %}
+
+             
